@@ -63,7 +63,7 @@ int main(void) {
   {
     do_tcp_server(); /*TCP_Client 数据回环测试程序*/
     delay_ms(1);
-    USART2_PutChar(0x17);
-    USART3_PutChar(0x18);
+    // USART2_PutChar(0x17);
+    // USART3_PutChar(0x18);
   }
 }

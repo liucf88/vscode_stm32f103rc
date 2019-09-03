@@ -1,0 +1,16 @@
+# .gitignore
+
+
+Output/
+Project/
+Listing/
+build*
+cmake-build-*/
+
+GTAGS
+GRTAGS
+GPATH
+
+*.bat
+
+.gdb_history
