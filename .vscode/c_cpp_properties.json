@@ -1,0 +1,36 @@
+{
+    "configurations": [
+        {
+            "name": "Win32",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "${workspaceFolder}/Libraries/CMSIS",
+                "${workspaceFolder}/Libraries/FWlib/inc",
+                "${workspaceFolder}/User/Ethernet/Internet",
+                "${workspaceFolder}/User/Ethernet/W5500",
+                "${workspaceFolder}/User/I2C_EEPROM",
+                "${workspaceFolder}/User/led",
+                "${workspaceFolder}/User/spi",
+                "${workspaceFolder}/User/TimBase",
+                "${workspaceFolder}/User/uart",
+                "${workspaceFolder}/User",
+                "C:\\Program Files (x86)\\GNU Tools ARM Embedded\\8 2019-q3-update\\arm-none-eabi\\include",
+                "C:\\Program Files (x86)\\GNU Tools ARM Embedded\\8 2019-q3-update\\lib\\gcc\\arm-none-eabi\\8.3.1\\include",
+                "C:\\Program Files (x86)\\GNU Tools ARM Embedded\\8 2019-q3-update\\arm-none-eabi\\include\\sys"
+            ],
+            "defines": [
+                "_DEBUG",
+                "UNICODE",
+                "_UNICODE",
+                "STM32F10X_HD",
+                "USE_STDPERIPH_DRIVER"
+
+            ],
+            "compilerPath": "arm-none-eabi-gcc.exe",
+            "cStandard": "c11",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "clang-x64"
+        }
+    ],
+    "version": 4
+}
