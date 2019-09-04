@@ -4,11 +4,11 @@
 
 #define DEVICE_ID "W5500"
 typedef struct _DHCP_GET {
-  uint8 mac[6];
-  uint8 lip[4];
-  uint8 sub[4];
-  uint8 gw[4];
-  uint8 dns[4];
+	uint8 mac[6];
+	uint8 lip[4];
+	uint8 sub[4];
+	uint8 gw[4];
+	uint8 dns[4];
 } DHCP_Get;
 
 extern uint32 dhcp_time;
@@ -17,7 +17,7 @@ extern DHCP_Get DHCP_GET;
 #define EXTERN_DHCP_SN DHCP_GET.sub
 #define EXTERN_DHCP_GW DHCP_GET.gw
 #define EXTERN_DHCP_DNS DHCP_GET.dns
-#define EXTERN_DHCP_NAME "iweb" // ConfigMsg.domain
+#define EXTERN_DHCP_NAME "iweb"  // ConfigMsg.domain
 #define EXTERN_DHCP_SIP DHCP_GET.lip
 
 #define DHCP_RET_NONE 0
@@ -71,93 +71,93 @@ extern DHCP_Get DHCP_GET;
 
 /* DHCP option and value (cf. RFC1533) */
 enum {
-  padOption = 0,
-  subnetMask = 1,
-  timerOffset = 2,
-  routersOnSubnet = 3,
-  timeServer = 4,
-  nameServer = 5,
-  dns = 6,
-  logServer = 7,
-  cookieServer = 8,
-  lprServer = 9,
-  impressServer = 10,
-  resourceLocationServer = 11,
-  hostName = 12,
-  bootFileSize = 13,
-  meritDumpFile = 14,
-  domainName = 15,
-  swapServer = 16,
-  rootPath = 17,
-  extentionsPath = 18,
-  IPforwarding = 19,
-  nonLocalSourceRouting = 20,
-  policyFilter = 21,
-  maxDgramReasmSize = 22,
-  defaultIPTTL = 23,
-  pathMTUagingTimeout = 24,
-  pathMTUplateauTable = 25,
-  ifMTU = 26,
-  allSubnetsLocal = 27,
-  broadcastAddr = 28,
-  performMaskDiscovery = 29,
-  maskSupplier = 30,
-  performRouterDiscovery = 31,
-  routerSolicitationAddr = 32,
-  staticRoute = 33,
-  trailerEncapsulation = 34,
-  arpCacheTimeout = 35,
-  ethernetEncapsulation = 36,
-  tcpDefaultTTL = 37,
-  tcpKeepaliveInterval = 38,
-  tcpKeepaliveGarbage = 39,
-  nisDomainName = 40,
-  nisServers = 41,
-  ntpServers = 42,
-  vendorSpecificInfo = 43,
-  netBIOSnameServer = 44,
-  netBIOSdgramDistServer = 45,
-  netBIOSnodeType = 46,
-  netBIOSscope = 47,
-  xFontServer = 48,
-  xDisplayManager = 49,
-  dhcpRequestedIPaddr = 50,
-  dhcpIPaddrLeaseTime = 51,
-  dhcpOptionOverload = 52,
-  dhcpMessageType = 53,
-  dhcpServerIdentifier = 54,
-  dhcpParamRequest = 55,
-  dhcpMsg = 56,
-  dhcpMaxMsgSize = 57,
-  dhcpT1value = 58,
-  dhcpT2value = 59,
-  dhcpClassIdentifier = 60,
-  dhcpClientIdentifier = 61,
-  endOption = 255
+	padOption = 0,
+	subnetMask = 1,
+	timerOffset = 2,
+	routersOnSubnet = 3,
+	timeServer = 4,
+	nameServer = 5,
+	dns = 6,
+	logServer = 7,
+	cookieServer = 8,
+	lprServer = 9,
+	impressServer = 10,
+	resourceLocationServer = 11,
+	hostName = 12,
+	bootFileSize = 13,
+	meritDumpFile = 14,
+	domainName = 15,
+	swapServer = 16,
+	rootPath = 17,
+	extentionsPath = 18,
+	IPforwarding = 19,
+	nonLocalSourceRouting = 20,
+	policyFilter = 21,
+	maxDgramReasmSize = 22,
+	defaultIPTTL = 23,
+	pathMTUagingTimeout = 24,
+	pathMTUplateauTable = 25,
+	ifMTU = 26,
+	allSubnetsLocal = 27,
+	broadcastAddr = 28,
+	performMaskDiscovery = 29,
+	maskSupplier = 30,
+	performRouterDiscovery = 31,
+	routerSolicitationAddr = 32,
+	staticRoute = 33,
+	trailerEncapsulation = 34,
+	arpCacheTimeout = 35,
+	ethernetEncapsulation = 36,
+	tcpDefaultTTL = 37,
+	tcpKeepaliveInterval = 38,
+	tcpKeepaliveGarbage = 39,
+	nisDomainName = 40,
+	nisServers = 41,
+	ntpServers = 42,
+	vendorSpecificInfo = 43,
+	netBIOSnameServer = 44,
+	netBIOSdgramDistServer = 45,
+	netBIOSnodeType = 46,
+	netBIOSscope = 47,
+	xFontServer = 48,
+	xDisplayManager = 49,
+	dhcpRequestedIPaddr = 50,
+	dhcpIPaddrLeaseTime = 51,
+	dhcpOptionOverload = 52,
+	dhcpMessageType = 53,
+	dhcpServerIdentifier = 54,
+	dhcpParamRequest = 55,
+	dhcpMsg = 56,
+	dhcpMaxMsgSize = 57,
+	dhcpT1value = 58,
+	dhcpT2value = 59,
+	dhcpClassIdentifier = 60,
+	dhcpClientIdentifier = 61,
+	endOption = 255
 };
 
 typedef struct _RIP_MSG {
-  uint8 op;
-  uint8 htype;
-  uint8 hlen;
-  uint8 hops;
-  uint32 xid;
-  uint16 secs;
-  uint16 flags;
-  uint8 ciaddr[4];
-  uint8 yiaddr[4];
-  uint8 siaddr[4];
-  uint8 giaddr[4];
-  uint8 chaddr[16];
-  uint8 sname[64];
-  uint8 file[128];
-  uint8 OPT[312];
+	uint8 op;
+	uint8 htype;
+	uint8 hlen;
+	uint8 hops;
+	uint32 xid;
+	uint16 secs;
+	uint16 flags;
+	uint8 ciaddr[4];
+	uint8 yiaddr[4];
+	uint8 siaddr[4];
+	uint8 giaddr[4];
+	uint8 chaddr[16];
+	uint8 sname[64];
+	uint8 file[128];
+	uint8 OPT[312];
 } RIP_MSG;
 
 #define MAX_DHCP_OPT 16
 
 void init_dhcp_client(void);
 
-uint8 check_DHCP_state(SOCKET s); // Check the DHCP state
+uint8 check_DHCP_state(SOCKET s);  // Check the DHCP state
 void do_dhcp(void);
 #endif /* _DHCP_H_ */

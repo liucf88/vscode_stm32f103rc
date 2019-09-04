@@ -170,28 +170,28 @@
 #define Sn_KPALVTR(ch) (0x002F08 + (ch << 5))
 
 /* MODE register values */
-#define MR_RST 0x80      /**< reset */
-#define MR_WOL 0x20      /**< Wake on Lan */
-#define MR_PB 0x10       /**< ping block */
-#define MR_PPPOE 0x08    /**< enable pppoe */
+#define MR_RST 0x80		 /**< reset */
+#define MR_WOL 0x20		 /**< Wake on Lan */
+#define MR_PB 0x10		 /**< ping block */
+#define MR_PPPOE 0x08	/**< enable pppoe */
 #define MR_UDP_FARP 0x02 /**< enbale FORCE ARP */
 /* IR register values */
 #define IR_CONFLICT 0x80 /**< check ip confict */
-#define IR_UNREACH                                                             \
-  0x40 /**< get the destination unreachable message in UDP sending */
+#define IR_UNREACH \
+	0x40 /**< get the destination unreachable message in UDP sending */
 #define IR_PPPoE 0x20 /**< get the PPPoE close message */
 #define IR_MAGIC 0x10 /**< get the magic packet interrupt */
 
 /* Sn_MR values */
 #define Sn_MR_CLOSE 0x00  /**< unused socket */
-#define Sn_MR_TCP 0x01    /**< TCP */
-#define Sn_MR_UDP 0x02    /**< UDP */
+#define Sn_MR_TCP 0x01	/**< TCP */
+#define Sn_MR_UDP 0x02	/**< UDP */
 #define Sn_MR_IPRAW 0x03  /**< IP LAYER RAW SOCK */
 #define Sn_MR_MACRAW 0x04 /**< MAC LAYER RAW SOCK */
 #define Sn_MR_PPPOE 0x05  /**< PPPoE */
 #define Sn_MR_UCASTB 0x10 /**< Unicast Block in UDP Multicating*/
-#define Sn_MR_ND 0x20     /**< No Delayed Ack(TCP) flag */
-#define Sn_MR_MC 0x20     /**< Multicast IGMP (UDP) flag */
+#define Sn_MR_ND 0x20	 /**< No Delayed Ack(TCP) flag */
+#define Sn_MR_MC 0x20	 /**< Multicast IGMP (UDP) flag */
 #define Sn_MR_BCASTB 0x40 /**< Broadcast blcok in UDP Multicating */
 #define Sn_MR_MULTI 0x80  /**< support UDP Multicating */
 
@@ -203,17 +203,17 @@
 
 /* Sn_CR values */
 #define Sn_CR_OPEN 0x01 /**< initialize or open socket */
-#define Sn_CR_LISTEN                                                           \
-  0x02 /**< wait connection request in tcp mode(Server mode) */
-#define Sn_CR_CONNECT                                                          \
-  0x04 /**< send connection request in tcp mode(Client mode) */
+#define Sn_CR_LISTEN \
+	0x02 /**< wait connection request in tcp mode(Server mode) */
+#define Sn_CR_CONNECT \
+	0x04 /**< send connection request in tcp mode(Client mode) */
 #define Sn_CR_DISCON 0x08 /**< send closing reqeuset in tcp mode */
 #define Sn_CR_CLOSE 0x10  /**< close socket */
 #define Sn_CR_SEND 0x20   /**< update txbuf pointer, send data */
-#define Sn_CR_SEND_MAC                                                         \
-  0x21 /**< send data with MAC address, so without ARP process */
+#define Sn_CR_SEND_MAC \
+	0x21 /**< send data with MAC address, so without ARP process */
 #define Sn_CR_SEND_KEEP 0x22 /**<  send keep alive message */
-#define Sn_CR_RECV 0x40      /**< update rxbuf pointer, recv data */
+#define Sn_CR_RECV 0x40		 /**< update rxbuf pointer, recv data */
 
 #ifdef __DEF_IINCHIP_PPP__
 #define Sn_CR_PCON 0x23
@@ -232,29 +232,29 @@
 
 #define Sn_IR_SEND_OK 0x10 /**< complete sending */
 #define Sn_IR_TIMEOUT 0x08 /**< assert timeout */
-#define Sn_IR_RECV 0x04    /**< receiving data */
+#define Sn_IR_RECV 0x04	/**< receiving data */
 #define Sn_IR_DISCON 0x02  /**< closed socket */
-#define Sn_IR_CON 0x01     /**< established connection */
+#define Sn_IR_CON 0x01	 /**< established connection */
 
 /* Sn_SR values */
-#define SOCK_CLOSED 0x00      /**< closed */
-#define SOCK_INIT 0x13        /**< init state */
-#define SOCK_LISTEN 0x14      /**< listen state */
-#define SOCK_SYNSENT 0x15     /**< connection state */
-#define SOCK_SYNRECV 0x16     /**< connection state */
+#define SOCK_CLOSED 0x00	  /**< closed */
+#define SOCK_INIT 0x13		  /**< init state */
+#define SOCK_LISTEN 0x14	  /**< listen state */
+#define SOCK_SYNSENT 0x15	 /**< connection state */
+#define SOCK_SYNRECV 0x16	 /**< connection state */
 #define SOCK_ESTABLISHED 0x17 /**< success to connect */
-#define SOCK_FIN_WAIT 0x18    /**< closing state */
-#define SOCK_CLOSING 0x1A     /**< closing state */
+#define SOCK_FIN_WAIT 0x18	/**< closing state */
+#define SOCK_CLOSING 0x1A	 /**< closing state */
 #define SOCK_TIME_WAIT 0x1B   /**< closing state */
 #define SOCK_CLOSE_WAIT 0x1C  /**< closing state */
-#define SOCK_LAST_ACK 0x1D    /**< closing state */
-#define SOCK_UDP 0x22         /**< udp socket */
-#define SOCK_IPRAW 0x32       /**< ip raw mode socket */
-#define SOCK_MACRAW 0x42      /**< mac raw mode socket */
-#define SOCK_PPPOE 0x5F       /**< pppoe socket */
+#define SOCK_LAST_ACK 0x1D	/**< closing state */
+#define SOCK_UDP 0x22		  /**< udp socket */
+#define SOCK_IPRAW 0x32		  /**< ip raw mode socket */
+#define SOCK_MACRAW 0x42	  /**< mac raw mode socket */
+#define SOCK_PPPOE 0x5F		  /**< pppoe socket */
 
 /* IP PROTOCOL */
-#define IPPROTO_IP 0    /**< Dummy for IP */
+#define IPPROTO_IP 0	/**< Dummy for IP */
 #define IPPROTO_ICMP 1  /**< Control message protocol */
 #define IPPROTO_IGMP 2  /**< Internet group management protocol */
 #define IPPROTO_GGP 3   /**< Gateway^2 (deprecated) */
@@ -269,33 +269,33 @@
  * iinchip access function
  *********************************************************/
 
-void iinchip_init(void);                              // reset iinchip
-void socket_buf_init(uint8 *tx_size, uint8 *rx_size); // setting tx/rx buf size
+void iinchip_init(void);							   // reset iinchip
+void socket_buf_init(uint8 *tx_size, uint8 *rx_size);  // setting tx/rx buf size
 uint8 getISR(uint8 s);
 void putISR(uint8 s, uint8 val);
 uint16 getIINCHIP_RxMAX(uint8 s);
 uint16 getIINCHIP_TxMAX(uint8 s);
 void setMR(uint8 val);
-void setRTR(uint16 timeout); // set retry duration for data transmission,
-                             // connection, closing ...
-void setRCR(
-    uint8 retry); // set retry count (above the value, assert timeout interrupt)
-void clearIR(uint8 mask); // clear interrupt
+void setRTR(uint16 timeout);  // set retry duration for data transmission,
+							  // connection, closing ...
+void setRCR(uint8 retry);  // set retry count (above the value, assert timeout
+						   // interrupt)
+void clearIR(uint8 mask);  // clear interrupt
 uint8 getIR(void);
-void setSn_MSS(SOCKET s, uint16 Sn_MSSR); // set maximum segment size
-uint8 getSn_IR(SOCKET s);                 // get socket interrupt status
-uint8 getSn_SR(SOCKET s);                 // get socket status
-uint16 getSn_TX_FSR(SOCKET s);            // get socket TX free buf size
-uint16 getSn_RX_RSR(SOCKET s);            // get socket RX recv buf size
+void setSn_MSS(SOCKET s, uint16 Sn_MSSR);  // set maximum segment size
+uint8 getSn_IR(SOCKET s);				   // get socket interrupt status
+uint8 getSn_SR(SOCKET s);				   // get socket status
+uint16 getSn_TX_FSR(SOCKET s);			   // get socket TX free buf size
+uint16 getSn_RX_RSR(SOCKET s);			   // get socket RX recv buf size
 uint8 getSn_SR(SOCKET s);
 void setSn_TTL(SOCKET s, uint8 ttl);
 void send_data_processing(SOCKET s, uint8 *wizdata, uint16 len);
 void recv_data_processing(SOCKET s, uint8 *wizdata, uint16 len);
 
-void setGAR(uint8 *addr);  // set gateway address
-void setSUBR(uint8 *addr); // set subnet mask address
-void setSHAR(uint8 *addr); // set local MAC address
-void setSIPR(uint8 *addr); // set local IP address
+void setGAR(uint8 *addr);   // set gateway address
+void setSUBR(uint8 *addr);  // set subnet mask address
+void setSHAR(uint8 *addr);  // set local MAC address
+void setSIPR(uint8 *addr);  // set local IP address
 void getGAR(uint8 *addr);
 void getSUBR(uint8 *addr);
 void getSHAR(uint8 *addr);
@@ -317,6 +317,6 @@ extern uint8 rxsize[];
  *  IINCHIP_WRITE(WIZCHIP_OFFSET_INC(RTR0,1));
  */
 //#define WIZCHIP_OFFSET_INC(ADDR, N)    (ADDR + (N<<8)) //< Increase offset
-//address
+// address
 
 #endif

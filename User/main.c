@@ -22,6 +22,8 @@
  ******************************************************************************
  */
 
+#include <stdio.h>
+#include <string.h>
 #include "W5500_conf.h"
 #include "bsp_i2c_ee.h"
 #include "bsp_i2c_gpio.h"
@@ -34,36 +36,35 @@
 #include "tcp_demo.h"
 #include "utility.h"
 #include "w5500.h"
-#include <stdio.h>
-#include <string.h>
 
-int main(void) {
-  systick_init(72); /*初始化Systick工作时钟*/
-  LED_GPIO_Config();
-  USART1_Config(); /*初始化串口通信:115200@8-n-1*/
-  USART2_Config(); /*初始化串口通信:115200@8-n-1*/
-  USART3_Config(); /*初始化串口通信:115200@8-n-1*/
-  i2c_CfgGpio();   /*初始化eeprom*/
+int main(void)
+{
+	systick_init(72); /*初始化Systick工作时钟*/
+	LED_GPIO_Config();
+	USART1_Config(); /*初始化串口通信:115200@8-n-1*/
+	USART2_Config(); /*初始化串口通信:115200@8-n-1*/
+	USART3_Config(); /*初始化串口通信:115200@8-n-1*/
+	i2c_CfgGpio();   /*初始化eeprom*/
 
-  printf(" W5500 TCP Server demo V1.2 \r\n");
+	printf(" W5500 TCP Server demo V1.2 \r\n");
 
-  gpio_for_w5500_config(); /*初始化MCU相关引脚*/
-  reset_w5500();           /*硬复位W5500*/
-  PHY_check();             /*检查网线是否接入*/
-  set_w5500_mac();         /*配置MAC地址*/
-  set_w5500_ip();          /*配置IP地址*/
+	gpio_for_w5500_config(); /*初始化MCU相关引脚*/
+	reset_w5500();			 /*硬复位W5500*/
+	PHY_check();			 /*检查网线是否接入*/
+	set_w5500_mac();		 /*配置MAC地址*/
+	set_w5500_ip();			 /*配置IP地址*/
 
-  socket_buf_init(txsize, rxsize); /*初始化8个Socket的发送接收缓存大小*/
+	socket_buf_init(txsize, rxsize); /*初始化8个Socket的发送接收缓存大小*/
 
-  printf(" W5500为TCP 服务器，建立侦听，等待PC作为TCP Client建立连接 \r\n");
-  printf(" W5500监听端口为： %d \r\n", local_port);
-  printf(" 连接成功后，TCP Client发送数据给W5500，W5500将返回对应数据 \r\n");
+	printf(" W5500为TCP 服务器，建立侦听，等待PC作为TCP Client建立连接 \r\n");
+	printf(" W5500监听端口为： %d \r\n", local_port);
+	printf(" 连接成功后，TCP Client发送数据给W5500，W5500将返回对应数据 \r\n");
 
-  while (1) /*循环执行的函数*/
-  {
-    do_tcp_server(); /*TCP_Client 数据回环测试程序*/
-    delay_ms(1);
-    // USART2_PutChar(0x17);
-    // USART3_PutChar(0x18);
-  }
+	while (1) /*循环执行的函数*/
+	{
+		do_tcp_server(); /*TCP_Client 数据回环测试程序*/
+		delay_ms(1);
+		// USART2_PutChar(0x17);
+		// USART3_PutChar(0x18);
+	}
 }

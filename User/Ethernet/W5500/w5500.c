@@ -18,29 +18,30 @@
 ******************************************************************************
 */
 #include "w5500.h"
+#include <stdio.h>
+#include <string.h>
 #include "socket.h"
 #include "utility.h"
 #include "w5500_conf.h"
-#include <stdio.h>
-#include <string.h>
 #ifdef __DEF_IINCHIP_PPP__
 #include "md5.h"
 #endif
 
-uint16 SSIZE[MAX_SOCK_NUM] = {0, 0, 0, 0, 0, 0, 0, 0}; // Max Tx buffer
-uint16 RSIZE[MAX_SOCK_NUM] = {0, 0, 0, 0, 0, 0, 0, 0}; // Max Rx buffer
-uint8 txsize[MAX_SOCK_NUM] = {2, 2, 2, 2, 2, 2, 2, 2}; // tx buffer set K bits
-uint8 rxsize[MAX_SOCK_NUM] = {2, 2, 2, 2, 2, 2, 2, 2}; // rx buffet set K bits
+uint16 SSIZE[MAX_SOCK_NUM] = {0, 0, 0, 0, 0, 0, 0, 0};  // Max Tx buffer
+uint16 RSIZE[MAX_SOCK_NUM] = {0, 0, 0, 0, 0, 0, 0, 0};  // Max Rx buffer
+uint8 txsize[MAX_SOCK_NUM] = {2, 2, 2, 2, 2, 2, 2, 2};  // tx buffer set K bits
+uint8 rxsize[MAX_SOCK_NUM] = {2, 2, 2, 2, 2, 2, 2, 2};  // rx buffet set K bits
 
 /**
  *@brief		This function is to get the Max size to receive.
  *@param		s: socket number
  *@return	This function return the RX buffer size has been setted
  */
-void iinchip_init(void) {
-  setMR(MR_RST);
+void iinchip_init(void)
+{
+	setMR(MR_RST);
 #ifdef __DEF_IINCHIP_DBG__
-  printf("MR value is %02x \r\n", IINCHIP_READ_COMMON(MR));
+	printf("MR value is %02x \r\n", IINCHIP_READ_COMMON(MR));
 #endif
 }
 
@@ -137,20 +138,21 @@ uint8 getIR(void) { return IINCHIP_READ(IR); }
 
 /**
 @brief		This function is to set up Retransmission time.
-                                        If there is no response from the peer or
+										If there is no response from the peer or
 delay in response then retransmission will be there as per RTR (Retry Time-value
 Register)setting
 *@param		timeout: The value write to  the RTR0 register
 *@return	None
 */
-void setRTR(uint16 timeout) {
-  IINCHIP_WRITE(RTR0, (uint8)((timeout & 0xff00) >> 8));
-  IINCHIP_WRITE(RTR1, (uint8)(timeout & 0x00ff));
+void setRTR(uint16 timeout)
+{
+	IINCHIP_WRITE(RTR0, (uint8)((timeout & 0xff00) >> 8));
+	IINCHIP_WRITE(RTR1, (uint8)(timeout & 0x00ff));
 }
 
 /**
 @brief		This function is to set the number of Retransmission.
-                                        If there is no response from the peer or
+										If there is no response from the peer or
 delay in response then recorded time as per RTR & RCR register seeting then time
 out will occur.
 *@param		retry: Times to  retry
@@ -174,9 +176,10 @@ void clearIR(uint8 mask) { IINCHIP_WRITE(IR, ~mask | getIR()); }
  *@param		Sn_MSSR: the maximum segment size
  *@return	None
  */
-void setSn_MSS(SOCKET s, uint16 Sn_MSSR) {
-  IINCHIP_WRITE(Sn_MSSR0(s), (uint8)((Sn_MSSR & 0xff00) >> 8));
-  IINCHIP_WRITE(Sn_MSSR1(s), (uint8)(Sn_MSSR & 0x00ff));
+void setSn_MSS(SOCKET s, uint16 Sn_MSSR)
+{
+	IINCHIP_WRITE(Sn_MSSR0(s), (uint8)((Sn_MSSR & 0xff00) >> 8));
+	IINCHIP_WRITE(Sn_MSSR1(s), (uint8)(Sn_MSSR & 0x00ff));
 }
 
 /**
@@ -212,23 +215,24 @@ uint8 getSn_SR(SOCKET s) { return IINCHIP_READ(Sn_SR(s)); }
 
 /**
 *@brief		This fuction is to get socket TX free buf size
-                                        This gives free buffer size of transmit
+										This gives free buffer size of transmit
 buffer. This is the data size that user can transmit. User shuold check this
 value first and control the size of transmitting data
 *@param		s: socket number
 *@return  socket TX free buf size
 */
-uint16 getSn_TX_FSR(SOCKET s) {
-  uint16 val = 0, val1 = 0;
-  do {
-    val1 = IINCHIP_READ(Sn_TX_FSR0(s));
-    val1 = (val1 << 8) + IINCHIP_READ(Sn_TX_FSR1(s));
-    if (val1 != 0) {
-      val = IINCHIP_READ(Sn_TX_FSR0(s));
-      val = (val << 8) + IINCHIP_READ(Sn_TX_FSR1(s));
-    }
-  } while (val != val1);
-  return val;
+uint16 getSn_TX_FSR(SOCKET s)
+{
+	uint16 val = 0, val1 = 0;
+	do {
+		val1 = IINCHIP_READ(Sn_TX_FSR0(s));
+		val1 = (val1 << 8) + IINCHIP_READ(Sn_TX_FSR1(s));
+		if (val1 != 0) {
+			val = IINCHIP_READ(Sn_TX_FSR0(s));
+			val = (val << 8) + IINCHIP_READ(Sn_TX_FSR1(s));
+		}
+	} while (val != val1);
+	return val;
 }
 
 /**
@@ -237,23 +241,24 @@ uint16 getSn_TX_FSR(SOCKET s) {
  *@param		s: socket number
  *@return  socket TX free buf size
  */
-uint16 getSn_RX_RSR(SOCKET s) {
-  uint16 val = 0, val1 = 0;
-  do {
-    val1 = IINCHIP_READ(Sn_RX_RSR0(s));
-    val1 = (val1 << 8) + IINCHIP_READ(Sn_RX_RSR1(s));
-    if (val1 != 0) {
-      val = IINCHIP_READ(Sn_RX_RSR0(s));
-      val = (val << 8) + IINCHIP_READ(Sn_RX_RSR1(s));
-    }
-  } while (val != val1);
-  return val;
+uint16 getSn_RX_RSR(SOCKET s)
+{
+	uint16 val = 0, val1 = 0;
+	do {
+		val1 = IINCHIP_READ(Sn_RX_RSR0(s));
+		val1 = (val1 << 8) + IINCHIP_READ(Sn_RX_RSR1(s));
+		if (val1 != 0) {
+			val = IINCHIP_READ(Sn_RX_RSR0(s));
+			val = (val << 8) + IINCHIP_READ(Sn_RX_RSR1(s));
+		}
+	} while (val != val1);
+	return val;
 }
 
 /**
 *@brief   This function is being called by send() and sendto() function also.
 
-                                        This function read the Tx write pointer
+										This function read the Tx write pointer
 register and after copy the data in buffer update the Tx write pointer register.
 User should read upper byte first and lower byte later to get proper value.
 *@param		s: socket number
@@ -261,28 +266,29 @@ User should read upper byte first and lower byte later to get proper value.
 *@param		len: data length
 *@return  socket TX free buf size
 */
-void send_data_processing(SOCKET s, uint8 *data, uint16 len) {
-  uint16 ptr = 0;
-  uint32 addrbsb = 0;
-  if (len == 0) {
-    printf("CH: %d Unexpected1 length 0\r\n", s);
-    return;
-  }
+void send_data_processing(SOCKET s, uint8 *data, uint16 len)
+{
+	uint16 ptr = 0;
+	uint32 addrbsb = 0;
+	if (len == 0) {
+		printf("CH: %d Unexpected1 length 0\r\n", s);
+		return;
+	}
 
-  ptr = IINCHIP_READ(Sn_TX_WR0(s));
-  ptr = ((ptr & 0x00ff) << 8) + IINCHIP_READ(Sn_TX_WR1(s));
+	ptr = IINCHIP_READ(Sn_TX_WR0(s));
+	ptr = ((ptr & 0x00ff) << 8) + IINCHIP_READ(Sn_TX_WR1(s));
 
-  addrbsb = (uint32)(ptr << 8) + (s << 5) + 0x10;
-  wiz_write_buf(addrbsb, data, len);
+	addrbsb = (uint32)(ptr << 8) + (s << 5) + 0x10;
+	wiz_write_buf(addrbsb, data, len);
 
-  ptr += len;
-  IINCHIP_WRITE(Sn_TX_WR0(s), (uint8)((ptr & 0xff00) >> 8));
-  IINCHIP_WRITE(Sn_TX_WR1(s), (uint8)(ptr & 0x00ff));
+	ptr += len;
+	IINCHIP_WRITE(Sn_TX_WR0(s), (uint8)((ptr & 0xff00) >> 8));
+	IINCHIP_WRITE(Sn_TX_WR1(s), (uint8)(ptr & 0x00ff));
 }
 
 /**
 *@brief  	This function is being called by recv() also.
-                                        This function read the Rx read pointer
+										This function read the Rx read pointer
 register and after copy the data from receive buffer update the Rx write pointer
 register. User should read upper byte first and lower byte later to get proper
 value.
@@ -291,31 +297,32 @@ value.
 *@param		len: data length
 *@return  None
 */
-void recv_data_processing(SOCKET s, uint8 *data, uint16 len) {
-  uint16 ptr = 0;
-  uint32 addrbsb = 0;
+void recv_data_processing(SOCKET s, uint8 *data, uint16 len)
+{
+	uint16 ptr = 0;
+	uint32 addrbsb = 0;
 
-  if (len == 0) {
-    printf("CH: %d Unexpected2 length 0\r\n", s);
-    return;
-  }
+	if (len == 0) {
+		printf("CH: %d Unexpected2 length 0\r\n", s);
+		return;
+	}
 
-  ptr = IINCHIP_READ(Sn_RX_RD0(s));
-  ptr = ((ptr & 0x00ff) << 8) + IINCHIP_READ(Sn_RX_RD1(s));
+	ptr = IINCHIP_READ(Sn_RX_RD0(s));
+	ptr = ((ptr & 0x00ff) << 8) + IINCHIP_READ(Sn_RX_RD1(s));
 
-  addrbsb = (uint32)(ptr << 8) + (s << 5) + 0x18;
-  wiz_read_buf(addrbsb, data, len);
-  ptr += len;
+	addrbsb = (uint32)(ptr << 8) + (s << 5) + 0x18;
+	wiz_read_buf(addrbsb, data, len);
+	ptr += len;
 
-  IINCHIP_WRITE(Sn_RX_RD0(s), (uint8)((ptr & 0xff00) >> 8));
-  IINCHIP_WRITE(Sn_RX_RD1(s), (uint8)(ptr & 0x00ff));
+	IINCHIP_WRITE(Sn_RX_RD0(s), (uint8)((ptr & 0xff00) >> 8));
+	IINCHIP_WRITE(Sn_RX_RD1(s), (uint8)(ptr & 0x00ff));
 }
 
 /**
 *@brief		This function set the transmit & receive buffer size as per the
 channels is used
 *@Note: 	TMSR and RMSR bits are as follows\n
-                                        Maximum memory size for Tx, Rx in the
+										Maximum memory size for Tx, Rx in the
 W5500 is 16K Bytes,\n In the range of 16KBytes, the memory size could be
 allocated dynamically by each channel.\n Be attentive to sum of memory size
 shouldn't exceed 8Kbytes\n and to data transmission and receiption from
@@ -328,35 +335,37 @@ memory.\n
 *@param		rx_size: rx buffer size to set=rx_size[s]*(1024)
 *@return	None
 */
-void socket_buf_init(uint8 *tx_size, uint8 *rx_size) {
-  int16 i;
-  int16 ssum = 0, rsum = 0;
+void socket_buf_init(uint8 *tx_size, uint8 *rx_size)
+{
+	int16 i;
+	int16 ssum = 0, rsum = 0;
 
-  for (i = 0; i < MAX_SOCK_NUM; i++) // Set the size, masking and base address
-                                     // of Tx & Rx memory by each channel
-  {
-    IINCHIP_WRITE((Sn_TXMEM_SIZE(i)), tx_size[i]);
-    IINCHIP_WRITE((Sn_RXMEM_SIZE(i)), rx_size[i]);
+	for (i = 0; i < MAX_SOCK_NUM;
+		 i++)  // Set the size, masking and base address
+			   // of Tx & Rx memory by each channel
+	{
+		IINCHIP_WRITE((Sn_TXMEM_SIZE(i)), tx_size[i]);
+		IINCHIP_WRITE((Sn_RXMEM_SIZE(i)), rx_size[i]);
 
 #ifdef __DEF_IINCHIP_DBG__
-    printf("tx_size[%d]: %d, Sn_TXMEM_SIZE = %d\r\n", i, tx_size[i],
-           IINCHIP_READ(Sn_TXMEM_SIZE(i)));
-    printf("rx_size[%d]: %d, Sn_RXMEM_SIZE = %d\r\n", i, rx_size[i],
-           IINCHIP_READ(Sn_RXMEM_SIZE(i)));
+		printf("tx_size[%d]: %d, Sn_TXMEM_SIZE = %d\r\n", i, tx_size[i],
+			   IINCHIP_READ(Sn_TXMEM_SIZE(i)));
+		printf("rx_size[%d]: %d, Sn_RXMEM_SIZE = %d\r\n", i, rx_size[i],
+			   IINCHIP_READ(Sn_RXMEM_SIZE(i)));
 #endif
-    SSIZE[i] = (int16)(0);
-    RSIZE[i] = (int16)(0);
+		SSIZE[i] = (int16)(0);
+		RSIZE[i] = (int16)(0);
 
-    if (ssum <= 16384) {
-      SSIZE[i] = (int16)tx_size[i] * (1024);
-    }
+		if (ssum <= 16384) {
+			SSIZE[i] = (int16)tx_size[i] * (1024);
+		}
 
-    if (rsum <= 16384) {
-      RSIZE[i] = (int16)rx_size[i] * (1024);
-    }
-    ssum += SSIZE[i];
-    rsum += RSIZE[i];
-  }
+		if (rsum <= 16384) {
+			RSIZE[i] = (int16)rx_size[i] * (1024);
+		}
+		ssum += SSIZE[i];
+		rsum += RSIZE[i];
+	}
 }
 
 /**
@@ -364,19 +373,20 @@ void socket_buf_init(uint8 *tx_size, uint8 *rx_size) {
  *@param		无
  *@return	无
  */
-void PHY_check(void) {
-  uint8 PHY_connect = 0;
-  PHY_connect = 0x01 & getPHYStatus();
-  if (PHY_connect == 0) {
-    printf(" \r\n 请检查网线是否连接?\r\n");
+void PHY_check(void)
+{
+	uint8 PHY_connect = 0;
+	PHY_connect = 0x01 & getPHYStatus();
+	if (PHY_connect == 0) {
+		printf(" \r\n 请检查网线是否连接?\r\n");
 
-    while (PHY_connect == 0) {
-      PHY_connect = 0x01 & getPHYStatus();
-      printf(" .");
-      delay_ms(500);
-    }
-    printf("\r\n");
-  }
+		while (PHY_connect == 0) {
+			PHY_connect = 0x01 & getPHYStatus();
+			printf(" .");
+			delay_ms(500);
+		}
+		printf("\r\n");
+	}
 }
 
 uint8 getPHYStatus(void) { return IINCHIP_READ(PHYCFGR); }

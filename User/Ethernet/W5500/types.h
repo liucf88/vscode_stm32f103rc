@@ -26,13 +26,13 @@ typedef uint16 u_short; /**< 16-bit value */
 typedef uint32 u_long; /**< 32-bit value */
 
 typedef union _un_l2cval {
-  u_long lVal;
-  uint8 cVal[4];
+	u_long lVal;
+	uint8 cVal[4];
 } un_l2cval;
 
 typedef union _un_i2cval {
-  uint16 iVal;
-  uint8 cVal[2];
+	uint16 iVal;
+	uint8 cVal[2];
 } un_i2cval;
 
 #endif /* _TYPE_H_ */
